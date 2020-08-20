@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  taurus-redis:
+    container_name: taurus-redis
+    image: redis:latest
+    sysctls:
+      net.core.somaxconn: 1024
+    ports:
+      - 6379:6379
+  taurus-commander:
+    container_name: taurus-commander
+    image: rediscommander/redis-commander:latest
+    ports:
+      - 8081:8081
+    environment:
+      - REDIS_HOSTS=taurus:taurus-redis:6379
