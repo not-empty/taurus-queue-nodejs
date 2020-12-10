@@ -25,6 +25,7 @@
   "readmeFilename": "README.md",
   "scripts": {
     "start": "node queue.js test",
+    "dev": "nodemon queue.js test",
     "lint": "./node_modules/.bin/eslint *.js ./app/*.js ./business/*.js ./config/*.js ./example/*.js",
     "check": "npm run lint"
   },
@@ -34,7 +35,8 @@
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "nodemon": "^2.0.6"
   },
   "license": "GPL-3.0-only"
 }
