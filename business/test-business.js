@@ -1,7 +1,9 @@
+const BaseBusiness = require('./base-business');
+
 /**
  * Example bussines job processor
  */
-class TestBusiness {
+class TestBusiness extends BaseBusiness {
   /**
    * @param {object} job
    * @param {Log} log
@@ -13,19 +15,28 @@ class TestBusiness {
     log,
     workerId,
   }) {
-    log.show(
-      'yellow',
-      `Worker: ${workerId} - ${job.id} - Start job`,
-    );
-
-    log.debug(
-      job.data,
-    );
-
-    log.show(
-      'yellow',
-      `Worker: ${workerId} - ${job.id} - Finish job`,
-    );
+    try {
+      log.show(
+        'yellow',
+        `Worker: ${workerId} - ${job.id} - Start job`,
+      );
+  
+      log.debug(
+        job.data,
+      );
+  
+      log.show(
+        'yellow',
+        `Worker: ${workerId} - ${job.id} - Finish job`,
+      );
+    } catch (error) {
+      return this.sendToFallback({
+        job,
+        log,
+        workerId,
+        error,
+      });
+    }
   }
 }
 

@@ -36,16 +36,5 @@ class Validate {
       process.exit(1);
     }
   }
-
-  async hasBusinessFile() {
-    const path = `./business/${this.queueName}-business.js`;
-    if (!fs.existsSync(path)) {
-      this.log.show(
-        'red',
-        `Unable to start: Missing ./business/${this.queueName}-business.js file`
-      );
-      process.exit(1);
-    }
-  }
 }
 module.exports = Validate;

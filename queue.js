@@ -28,7 +28,6 @@ var queueName = '';
 const validations = [
   validate.isValidQueueName(),
   validate.hasBusinessInConstructor(),
-  validate.hasBusinessFile(),
 ];
 
 log.debug(

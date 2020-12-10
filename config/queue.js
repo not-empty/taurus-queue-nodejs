@@ -19,5 +19,6 @@ module.exports = {
       default:
         throw new Error('Unexpected connection type: ', type);
     }
-  }
+  },
+  fallbackQueue: process.env.TAURUS_FALLBACK_QUEUE || null,
 };
