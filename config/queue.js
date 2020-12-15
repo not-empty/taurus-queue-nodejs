@@ -20,5 +20,10 @@ module.exports = {
         throw new Error('Unexpected connection type: ', type);
     }
   },
-  fallbackQueue: process.env.TAURUS_FALLBACK_QUEUE || null,
+  fallback: {
+    enabled: Number(process.env.TAURUS_FALLBACK_ENABLED) || 0,
+    queueName: process.env.TAURUS_FALLBACK_QUEUE || null,
+    attempts: Number(process.env.TAURUS_FALLBACK_ATTEMPTS) || 3,
+    backoff: Number(process.env.TAURUS_FALLBACK_BACKOFF) || 30000,
+  },
 };

@@ -1,5 +1,5 @@
 const PushQueue = require('../core/push-queue');
-const { fallbackQueue, attempts } = require('../config/queue');
+const { fallback, attempts } = require('../config/queue');
 
 /**
  * Base business class.
@@ -32,8 +32,12 @@ class BaseBusiness {
     );
 
     await pushQueue.push(
-      fallbackQueue,
+      fallback.queueName,
       job.data,
+      {
+        attempts: fallback.attempts,
+        backoff: fallback.backoff,
+      },
     );
   }
 
@@ -43,7 +47,10 @@ class BaseBusiness {
    * @return {bool}
    */
   shouldSendToFallback(job) {
-    if (!fallbackQueue) {
+    if (!fallback.enabled) {
+      return false;
+    }
+    if (job.data.taurus_fallback) {
       return false;
     }
 
