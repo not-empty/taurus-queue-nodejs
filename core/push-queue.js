@@ -17,12 +17,14 @@ class PushQueue {
 
   async push(
     queueName,
-    data
+    data,
+    options = {},
   ) {
     const queue = new Bull(
       queueName,
       this.options
     );
+    data.taurus_fallback = true;
     await queue.add(
       'process',
       data,
@@ -31,6 +33,7 @@ class PushQueue {
         attempts: configQueue.attempts,
         backoff: configQueue.backoff,
         jobId: ulid.ulid(),
+        ...options,
       }
     );
     await queue.close();

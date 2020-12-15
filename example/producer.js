@@ -11,8 +11,8 @@ queue.add(
   },
   {
     removeOnComplete: 100,
-    attempts: 3,
-    backoff: 3000,
+    attempts: 2,
+    backoff: 5000,
     jobId: Ulid.ulid(),
   }
 ).then(() => {
