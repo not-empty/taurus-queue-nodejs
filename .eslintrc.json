@@ -1,12 +1,16 @@
 {
     "env": {
         "browser": true,
-        "es2020": true
+        "commonjs": true,
+        "es2021": true
     },
+    "extends": [
+        "google"
+    ],
     "parserOptions": {
-        "ecmaVersion": 11,
-        "sourceType": "module"
+        "ecmaVersion": 13
     },
     "rules": {
+        "require-jsdoc" : 0
     }
 }

@@ -1,5 +1,4 @@
 const constructors = require('../config/constructor');
-const fs = require('fs');
 
 class Validate {
   constructor(log, queueName) {
@@ -13,15 +12,15 @@ class Validate {
       !this.queueName.trim()
     ) {
       this.log.show(
-        'red',
-        'Unable to start: Empty queue name'
+          'red',
+          'Unable to start: Empty queue name',
       );
       process.exit(1);
     }
     if (this.queueName == 'undefined') {
       this.log.show(
-        'red',
-        'Unable to start: Missing queue name'
+          'red',
+          'Unable to start: Missing queue name',
       );
       process.exit(1);
     }
@@ -30,8 +29,8 @@ class Validate {
   async hasBusinessInConstructor() {
     if (!(this.queueName in constructors)) {
       this.log.show(
-        'red',
-        `Unable to start: Missing ${this.queueName} business in constructors`
+          'red',
+          `Unable to start: Missing ${this.queueName} business in constructors`,
       );
       process.exit(1);
     }

@@ -17,17 +17,17 @@ class TestBusiness extends BaseBusiness {
   }) {
     try {
       log.show(
-        'yellow',
-        `Worker: ${workerId} - ${job.id} - Start job`,
+          'yellow',
+          `Worker: ${workerId} - ${job.id} - Start job`,
       );
-  
+
       log.debug(
-        job.data,
+          job.data,
       );
-  
+
       log.show(
-        'yellow',
-        `Worker: ${workerId} - ${job.id} - Finish job`,
+          'yellow',
+          `Worker: ${workerId} - ${job.id} - Finish job`,
       );
     } catch (error) {
       return this.sendToFallback({

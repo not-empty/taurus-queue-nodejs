@@ -15,14 +15,14 @@ const queueData = [
   const queue = new Bull('test');
   for (let i = 0; i < qtde; i++) {
     await queue.add(
-      'process',
-      queueData[0],
-      {
-        removeOnComplete: 100,
-        attempts: 3,
-        backoff: 1000,
-        jobId: Ulid.ulid(),
-      },
+        'process',
+        queueData[0],
+        {
+          removeOnComplete: 100,
+          attempts: 3,
+          backoff: 1000,
+          jobId: Ulid.ulid(),
+        },
     );
 
     queueData[0].another_field += 1;
