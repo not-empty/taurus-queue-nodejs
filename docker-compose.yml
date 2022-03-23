@@ -1,5 +1,14 @@
 version: '3.7'
 services:
+  taurus-queue:
+    build: ./docker/dev
+    container_name: taurus-queue
+    depends_on:
+      - taurus-redis
+    volumes:
+      - ./:/usr/src
+    command: node queue.js test 1
+
   taurus-redis:
     container_name: taurus-redis
     image: redis:latest
@@ -7,6 +16,7 @@ services:
       net.core.somaxconn: 1024
     ports:
       - 6379:6379
+
   taurus-commander:
     container_name: taurus-commander
     image: rediscommander/redis-commander:latest
