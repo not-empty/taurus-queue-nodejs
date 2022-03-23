@@ -10,8 +10,8 @@
   ],
   "main": "queue.js",
   "dependencies": {
-    "bull": "^3.16.0",
-    "dotenv": "^8.2.0",
+    "bull": "^4.8.1",
+    "dotenv": "^16.0.0",
     "ulid": "^2.3.0"
   },
   "keywords": [
@@ -30,13 +30,13 @@
     "check": "npm run lint"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "dirty-chai": "^2.0.1",
-    "eslint": "^7.7.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "mocha": "^6.2.0",
-    "nodemon": "^2.0.6"
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "mocha": "^9.2.2",
+    "nodemon": "^2.0.15"
   },
   "license": "GPL-3.0-only"
 }
