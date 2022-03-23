@@ -1,4 +1,4 @@
-var Redis = require('ioredis');
+const Redis = require('ioredis');
 
 module.exports = {
   redisHost: process.env.REDIS_HOST || 'localhost',
@@ -8,7 +8,7 @@ module.exports = {
   removeOnComplete: Number(process.env.TAURUS_REMOVE_ON_COMPLETE) || 100,
   attempts: Number(process.env.TAURUS_ATTEMPTS) || 3,
   backoff: Number(process.env.TAURUS_BACKOFF) || 30000,
-  createClient: function (type) {
+  createClient: function(type) {
     switch (type) {
       case 'client':
         return client;

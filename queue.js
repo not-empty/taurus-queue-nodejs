@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const DateTime = require('./app/date-time.js');
 const Log = require('./app/log.js');
@@ -14,16 +14,16 @@ const params = new ParamsQueue();
 const dateTime = new DateTime();
 
 const log = new Log(
-  dateTime,
-  colors,
-  params.debugMode
+    dateTime,
+    colors,
+    params.debugMode,
 );
 
 const validate = new Validate(log, params.queueName);
 
-var constructors = {};
-var queue = null;
-var queueName = '';
+let constructors = {};
+let queue = null;
+let queueName = '';
 
 const validations = [
   validate.isValidQueueName(),
@@ -31,46 +31,46 @@ const validations = [
 ];
 
 log.debug(
-  'Running on debug mode :)>>'
+    'Running on debug mode :)>>',
 );
 log.show(
-  'bright',
-  `Starting Taurus Queue ${version.version} ...`
+    'bright',
+    `Starting Taurus Queue ${version.version} ...`,
 );
 
-process.on("unhandledRejection", (reason, position) => {
+process.on('unhandledRejection', (reason, position) => {
   log.show(
-    'red',
-    `Unhandled Rejection at ${position} reason: ${reason}...`
+      'red',
+      `Unhandled Rejection at ${position} reason: ${reason}...`,
   );
   process.exit(1);
-})
+});
 
 const workerId = 1;
 
 Promise.all(validations)
-  .then(() => {
-    queueName = validate.queueName;
-    queue = new Queue(
-      queueName,
-      configQueue,
-      log,
-      workerId
-    );
+    .then(() => {
+      queueName = validate.queueName;
+      queue = new Queue(
+          queueName,
+          configQueue,
+          log,
+          workerId,
+      );
 
-    log.show(
-      'yellow',
-      `Active queue: ${queueName}`
-    );
-    constructors = validate.constructors;
-  }).then(() => {
-    const business = new constructors[queueName]();
-    queue.process(
-      'process',
-      async (job) => business.process({
-        job,
-        log,
-        workerId
-      })
-    )
-  });
+      log.show(
+          'yellow',
+          `Active queue: ${queueName}`,
+      );
+      constructors = validate.constructors;
+    }).then(() => {
+      const business = new constructors[queueName]();
+      queue.process(
+          'process',
+          async (job) => business.process({
+            job,
+            log,
+            workerId,
+          }),
+      );
+    });

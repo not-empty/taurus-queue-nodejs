@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const Cluster = require('./core/cluster.js');
 const DateTime = require('./app/date-time.js');
@@ -15,16 +15,16 @@ const params = new ParamsCluster();
 const dateTime = new DateTime();
 
 const log = new Log(
-  dateTime,
-  colors,
-  params.debugMode
+    dateTime,
+    colors,
+    params.debugMode,
 );
 
 const validate = new Validate(log, params.queueName);
 
-var constructors = {};
-var queue = null;
-var queueName = '';
+let constructors = {};
+let queue = null;
+let queueName = '';
 
 const validations = [
   validate.isValidQueueName(),
@@ -33,55 +33,55 @@ const validations = [
 ];
 
 const cluster = new Cluster();
-const { workerId } = cluster;
+const {workerId} = cluster;
 
 if (cluster.shouldStart()) {
   log.show(
-    'bright',
-    'Starting Taurus Cluster'
+      'bright',
+      'Starting Taurus Cluster',
   );
   cluster.start();
 }
 
 log.debug(
-  'Running on debug mode :)>>'
+    'Running on debug mode :)>>',
 );
 log.show(
-  'bright',
-  `Starting Taurus Queue ${version.version} ...`
+    'bright',
+    `Starting Taurus Queue ${version.version} ...`,
 );
 
-process.on("unhandledRejection", (reason, position) => {
+process.on('unhandledRejection', (reason, position) => {
   log.show(
-    'red',
-    `Unhandled Rejection at ${position} reason: ${reason}...`
+      'red',
+      `Unhandled Rejection at ${position} reason: ${reason}...`,
   );
   process.exit(1);
-})
+});
 
 Promise.all(validations)
-  .then(() => {
-    queueName = validate.queueName;
-    queue = new Queue(
-      queueName,
-      configQueue,
-      log,
-      workerId
-    );
+    .then(() => {
+      queueName = validate.queueName;
+      queue = new Queue(
+          queueName,
+          configQueue,
+          log,
+          workerId,
+      );
 
-    log.show(
-      'yellow',
-      `Active queue: ${queueName}`
-    );
-    constructors = validate.constructors;
-  }).then(() => {
-    const business = new constructors[queueName]();
-    queue.process(
-      'process',
-      async (job) => business.process({
-        job,
-        log,
-        workerId
-      })
-    )
-  });
+      log.show(
+          'yellow',
+          `Active queue: ${queueName}`,
+      );
+      constructors = validate.constructors;
+    }).then(() => {
+      const business = new constructors[queueName]();
+      queue.process(
+          'process',
+          async (job) => business.process({
+            job,
+            log,
+            workerId,
+          }),
+      );
+    });

@@ -7,8 +7,8 @@ class Log {
 
   show(color, message) {
     console.log(
-      this.colors[color],
-      `${this.date.getDate()} - ${message}`,
+        this.colors[color],
+        `${this.date.getDate()} - ${message}`,
     );
     return true;
   }
@@ -16,7 +16,7 @@ class Log {
   debug(content) {
     if (this.debugMode !== 0) {
       console.log(
-        content,
+          content,
       );
       return true;
     }

@@ -62,7 +62,7 @@ class DateTime {
 
   getDateTimezone(date = null, timeZone = 'Universal') {
     if (date === null) {
-      date = new Date().toLocaleString('en-US', { timeZone });
+      date = new Date().toLocaleString('en-US', {timeZone});
     }
     const year = this.getFullYear(date);
     const month = this.getMonth(date);

@@ -1,5 +1,5 @@
 const PushQueue = require('../core/push-queue');
-const { fallback, attempts } = require('../config/queue');
+const {fallback, attempts} = require('../config/queue');
 
 /**
  * Base business class.
@@ -27,17 +27,17 @@ class BaseBusiness {
     const pushQueue = new PushQueue();
 
     log.show(
-      'cyan',
-      `Worker: ${workerId} - ${job.id} - Send job to fallback queue`,
+        'cyan',
+        `Worker: ${workerId} - ${job.id} - Send job to fallback queue`,
     );
 
     await pushQueue.push(
-      fallback.queueName,
-      job.data,
-      {
-        attempts: fallback.attempts,
-        backoff: fallback.backoff,
-      },
+        fallback.queueName,
+        job.data,
+        {
+          attempts: fallback.attempts,
+          backoff: fallback.backoff,
+        },
     );
   }
 
