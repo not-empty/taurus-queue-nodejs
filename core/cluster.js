@@ -4,14 +4,13 @@ const ParamsCluster = require('./params-cluster');
 class Cluster {
   constructor() {
     const params = new ParamsCluster();
-    
+
     this.cluster = cluster;
     this.workersNumber = params.workersNumber;
   }
 
   get workerId() {
-    const { worker } = this.cluster;
-
+    const {worker} = this.cluster;
     return worker ? worker.id : 1;
   }
 
