@@ -1,5 +1,4 @@
 const Bull = require('bull');
-
 const configQueue = require('../config/queue');
 const ulid = require('ulid');
 
@@ -11,55 +10,59 @@ class PushQueue {
         port: configQueue.redisPort,
         maxRetriesPerRequest: configQueue.redisMaxRetriesPerRequest,
         enableReadyCheck: configQueue.redisEnableReadyCheck,
-      }
+      },
     };
   }
 
   async push(
-    queueName,
-    data,
-    options = {},
+      queueName,
+      data,
+      options = {},
   ) {
     const queue = new Bull(
-      queueName,
-      this.options
+        queueName,
+        this.options,
     );
+
     data.taurus_fallback = true;
     await queue.add(
-      'process',
-      data,
-      {
-        removeOnComplete: configQueue.removeOnComplete,
-        attempts: configQueue.attempts,
-        backoff: configQueue.backoff,
-        jobId: ulid.ulid(),
-        ...options,
-      }
+        'process',
+        data,
+        {
+          removeOnComplete: configQueue.removeOnComplete,
+          attempts: configQueue.attempts,
+          backoff: configQueue.backoff,
+          jobId: ulid.ulid(),
+          ...options,
+        },
     );
     await queue.close();
   }
 
   async schedule(
-    queueName,
-    data,
-    time
+      queueName,
+      data,
+      time,
   ) {
     const queue = new Bull(
-      queueName,
-      this.options
+        queueName,
+        this.options,
     );
+
     await queue.add(
-      'process',
-      data,
-      {
-        delay: time,
-        removeOnComplete: configQueue.removeOnComplete,
-        attempts: configQueue.attempts,
-        backoff: configQueue.backoff,
-        jobId: ulid.ulid(),
-      }
+        'process',
+        data,
+        {
+          delay: time,
+          removeOnComplete: configQueue.removeOnComplete,
+          attempts: configQueue.attempts,
+          backoff: configQueue.backoff,
+          jobId: ulid.ulid(),
+        },
     );
+
     await queue.close();
   }
 }
+
 module.exports = PushQueue;

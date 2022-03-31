@@ -26,7 +26,7 @@
   "scripts": {
     "start": "node queue.js test",
     "dev": "nodemon queue.js test",
-    "lint": "./node_modules/.bin/eslint *.js ./app/*.js ./business/*.js ./config/*.js ./example/*.js",
+    "lint": "./node_modules/.bin/eslint *.js ./app/*.js ./business/*.js ./config/*.js ./example/*.js ./core/*.js",
     "check": "npm run lint"
   },
   "devDependencies": {
