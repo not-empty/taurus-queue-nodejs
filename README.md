@@ -6,6 +6,15 @@
 
 Taurus Queue offers a comprehensive queue ecosystem, simplifying the creation, execution, management, and monitoring of scalable and highly available queues. Leveraging the robust foundation of the [Bull Project](https://github.com/OptimalBits/bull), Taurus Queue eliminates the intricacies of queue coding, allowing you to concentrate solely on your specific actions and rules, thus optimizing your time. It features a dedicated interface for efficient queue management and monitoring.
 
+Groups and queues list
+![Taurus Manager Queue list](https://github.com/not-empty/taurus-manager-vue/blob/master/screenshot1.png)
+
+Queue details
+![Taurus Manager Queue list](https://github.com/not-empty/taurus-manager-vue/blob/master/screenshot2.png)
+
+Monitor Screen (Monitoring only unhealth queues with autorefresh)
+![Taurus Manager Queue list](https://github.com/not-empty/taurus-manager-vue/blob/master/screenshot3.png)
+
 ## How the Queue Ecosystem Operates
 
 ### Setup and Job Publishing
