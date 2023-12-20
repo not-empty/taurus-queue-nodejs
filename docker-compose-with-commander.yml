@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  taurus-queue:
+    build:
+      context: ./
+      dockerfile: ./ops/docker/dev/Dockerfile
+    container_name: taurus-queue
+    depends_on:
+      - taurus-redis
+    volumes:
+      - ./:/usr/src
+    networks:
+      - taurus-network
+
+  taurus-redis:
+    container_name: taurus-redis
+    image: redis:latest
+    sysctls:
+      net.core.somaxconn: 1024
+    ports:
+      - 6379:6379
+    networks:
+      - taurus-network
+
+  taurus-commander:
+    container_name: taurus-commander
+    image: rediscommander/redis-commander:latest
+    ports:
+      - 8081:8081
+    environment:
+      - REDIS_HOSTS=taurus:taurus-redis:6379
+    networks:
+      - taurus-network
+
+networks:
+    taurus-network:
+      name: taurus-network
