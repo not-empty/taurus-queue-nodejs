@@ -9,14 +9,15 @@ Taurus Queue offers a comprehensive queue ecosystem, simplifying the creation, e
 ## How the Queue Ecosystem Operates
 
 ### Setup and Job Publishing
-1. Initialize your queues using this repository.
+1. Starting in this repository to create and run your first queue.
 2. Publish jobs to your queues using our publishers, compatible with multiple programming languages:
    - [PHP Taurus Queue Publisher](https://github.com/not-empty/taurus-publisher-php-lib)
    - [Go Bull Publisher](https://github.com/not-empty/taurus-publisher-golang)
+   - Use [Taurus Manager](https://github.com/not-empty/taurus-manager-vue) interface to create new job to an existent file
    - Node.js (native support with examples included in this project)
    - Python (Currently in development)
 
-### Queue Management with Horus Taurus Manager
+### Queue Management with Taurus Manager
 3. Utilize [Taurus Manager](https://github.com/not-empty/taurus-manager-vue) for:
    - Pausing/unpausing, adding/removing jobs.
    - Deleting, retrying, debuggin, viewing error logs and much more.
