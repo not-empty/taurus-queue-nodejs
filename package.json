@@ -26,8 +26,8 @@
   "scripts": {
     "start": "node queue.js",
     "start-cluster": "node cluster-queue.js",
-    "dev": "nodemon queue.js",
-    "dev-cluster": "nodemon cluster-queue.js",
+    "dev": "node --watch queue.js",
+    "dev-cluster": "node --watch cluster-queue.js",
     "lint": "./node_modules/.bin/eslint *.js ./app/*.js ./business/*.js ./config/*.js ./sample/*.js ./core/*.js",
     "check": "npm run lint"
   },
@@ -38,7 +38,6 @@
     "eslint": "^8.56.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.29.1",
-    "mocha": "^10.2.0",
-    "nodemon": "^3.0.2"
+    "mocha": "^10.2.0"
   }
 }

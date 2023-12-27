@@ -135,7 +135,7 @@ You can enter in container e run a queue worker by yourself passing your queue n
 docker exec -it taurus-queue bash
 ```
 
-Running a queue worker in debug mode (in nodemon to update service when code changes)
+Running a queue worker in debug mode (with node flag --watch to update service when code changes)
 ```sh
 npm run dev default 1
 ```
@@ -151,7 +151,7 @@ The `log.show` command always have output, so use carefully
 You can also run a cluster with multiples queue workers, in this case we running 5 workers.
 * if you choose to do that, take care of your resources like Memory and CPU, it can be very, very heavy depends on the number of works and the operations of your business.
 
-Running 5 queue workers in debug mode (in nodemon to update service when code changes)
+Running 5 queue workers in debug mode (with node flag --watch to update service when code changes)
 ```sh
 npm dev-cluster default 5 1
 ```
