@@ -10,7 +10,7 @@ class CheckCompletion {
   }
 
   async increment(
-    key,
+      key,
   ) {
     const redis = new Redis(
         this.options,
@@ -24,10 +24,10 @@ class CheckCompletion {
   }
 
   async decrement(
-    key,
+      key,
   ) {
     const redis = new Redis(
-      this.options,
+        this.options,
     );
     const luaScript = `
       local count = redis.call('DECR', KEYS[1])
