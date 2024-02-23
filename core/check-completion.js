@@ -4,13 +4,13 @@ const configRedis = require('../config/redis');
 class CheckCompletion {
   constructor() {
     this.options = {
-        host: configRedis.auxRedisHost,
-        port: configRedis.auxRedisPort,
+      host: configRedis.auxRedisHost,
+      port: configRedis.auxRedisPort,
     };
   }
 
   async increment(
-      key
+    key,
   ) {
     const redis = new Redis(
         this.options,
@@ -24,22 +24,22 @@ class CheckCompletion {
   }
 
   async decrement(
-    key
+    key,
   ) {
     const redis = new Redis(
       this.options,
     );
     const luaScript = `
-        local count = redis.call('DECR', KEYS[1])
-        return count
+      local count = redis.call('DECR', KEYS[1])
+      return count
     `;
 
     const result = await redis.eval(luaScript, 1, key);
     if (result === 0) {
-        console.log('Last job completed.');
-        await redis.del(key);
+      console.log('Last job completed.');
+      await redis.del(key);
     } else {
-        console.log(`Jobs remaining: ${result}`);
+      console.log(`Jobs remaining: ${result}`);
     }
     return result;
   }
