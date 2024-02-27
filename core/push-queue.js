@@ -43,6 +43,7 @@ class PushQueue {
       queueName,
       data,
       time,
+      options = {},
   ) {
     const queue = new Bull(
         queueName,
@@ -58,6 +59,7 @@ class PushQueue {
           attempts: configQueue.attempts,
           backoff: configQueue.backoff,
           jobId: ulid.ulid(),
+          ...options,
         },
     );
 
