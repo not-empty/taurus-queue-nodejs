@@ -9,15 +9,16 @@ class CheckCompletion {
     };
   }
 
-  async increment(
+  async setInitialJobCounter(
       key,
+      value,
   ) {
     const redis = new Redis(
         this.options,
     );
 
-    const result = await redis.incr(key);
-    console.log(`Job counter key: ${key}, increased, total jobs: ${result}`);
+    const result = await redis.set(key, value);
+    console.log(`Job counter key: ${key}, increased, total jobs: ${value}`);
 
     await redis.disconnect();
     return result;

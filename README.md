@@ -205,7 +205,7 @@ node sample/multi-producer.js default 60 '{"data":"mydata"}'
 
 If you use parallel processing with multiple workers, finding out when all jobs have completed successfully can be a complicated task due to asynchrony.
 
-To deal with this, Taurus has a functionality that uses a Redis + Lua solution to ensure that the last job in a group was executed, to use it you need to increment a list using a unique specific key when sending to each queue, and decrement this key to each queue that runs successfully.
+To deal with this, Taurus has a functionality that uses a Redis + Lua solution to ensure that the last job in a group was executed, to use it you will need to set a unique specific key with the amount of total queues you wanto to excecute, before sending to the queues, and decrement this key to each queue that runs successfully.
 
 The last queue will know it is last and will allow you to perform finishing actions.
 
@@ -218,13 +218,14 @@ AUX_REDIS_HOST=taurus-redis
 AUX_REDIS_PORT=6379
 ```
 
-2) When inserting into each queue you can use the CheckCompletion class to increment each job: (If you are outside the Taurus ecosystem you can just create a key in redis with [INCR command](https://redis.io/commands/incr/) with your favorite language.)
+2) When inserting into each queue you can use the CheckCompletion class to increment each job: (If you are outside the Taurus ecosystem you can just create a key in redis with [SET command](https://redis.io/commands/set/) on your favorite language but the value MUST BE INTEGER greater than 0.)
 
 ```js
 const CheckCompletion = require('../core/check-completion.js');
 ...
+const numberOfJobs = Number (100);
 const checkCompletion = new CheckCompletion();
-await checkCompletion.increment(uniqueKeyToRepresenTheGroup);
+await checkCompletion.setInitialJobCounter(uniqueKeyToRepresenTheGroup, numberOfJobs);
 ```
 
 3) When each queue has finished executing, just call the decrement command and check if it returned zero, if it returned zero, this queue is the last one of this group and you can execute any command you find necessary
