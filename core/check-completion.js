@@ -7,42 +7,54 @@ class CheckCompletion {
       host: configRedis.auxRedisHost,
       port: configRedis.auxRedisPort,
     };
+
+    this.redis = null;
   }
 
   async setInitialJobCounter(
       key,
       value,
   ) {
-    const redis = new Redis(
-        this.options,
-    );
-
+    const redis = this.newRedis();
     const result = await redis.set(key, value);
+
     console.log(`Job counter key: ${key}, increased, total jobs: ${value}`);
 
-    await redis.disconnect();
     return result;
   }
 
   async decrement(
       key,
   ) {
-    const redis = new Redis(
-        this.options,
-    );
+    const redis = this.newRedis();
     const luaScript = `
       local count = redis.call('DECR', KEYS[1])
       return count
     `;
 
     const result = await redis.eval(luaScript, 1, key);
+
     if (result === 0) {
       console.log('Last job completed.');
       await redis.del(key);
-    } else {
-      console.log(`Jobs remaining: ${result}`);
+
+      return result;
     }
+
+    console.log(`Jobs remaining: ${result}`);
     return result;
+  }
+
+  newRedis() {
+    if (this.redis) {
+      return this.redis;
+    }
+
+    this.redis = new Redis(
+        this.options,
+    );
+
+    return this.redis;
   }
 }
 
